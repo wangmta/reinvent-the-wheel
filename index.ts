@@ -1,29 +1,37 @@
-// import { registerClass, classCollection } from "./decorator";
-
-const classCollection = {};
-
-function registerClass(constructor) {
-  const className = constructor.name;
-  const fullName = `class-${className}`;
-  classCollection[fullName] = new constructor();
-}
+import {
+  registerClass,
+  classCollection,
+  protect,
+  protectedMethods,
+  override
+} from "./decorator";
 
 @registerClass
 class Business {
   print() {
     console.log(this.constructor.name);
   }
+
+  @protect
+  testProtectedMethod() {}
 }
 
-// @registerClass
-// class Supermaket extends Business {
-//   constructor() {
-//     super();
-//   }
-// }
 @registerClass
-class Supermaket {}
+class Supermaket extends Business {
+  constructor() {
+    super();
+  }
 
-console.log(classCollection);
+  @protect
+  superTest() {}
 
-console.log("hello there");
+  @override
+  anyMethod() {
+    // console.log(this.constructor.name);
+  }
+}
+
+// console.log(classCollection);
+// console.log(protectedMethods);
+// console.log(classCollection["class-Business"].print());
+console.log(classCollection["class-Supermaket"].anyMethod());

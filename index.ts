@@ -13,7 +13,9 @@ class Business {
   }
 
   @protect
-  testProtectedMethod() {}
+  loginTest() {
+    console.log("login successful Business");
+  }
 }
 
 @registerClass
@@ -23,7 +25,9 @@ class Supermaket extends Business {
   }
 
   @protect
-  superTest() {}
+  loginTest() {
+    console.log("login successful Supermarket");
+  }
 
   @override
   anyMethod() {
@@ -33,5 +37,7 @@ class Supermaket extends Business {
 
 // console.log(classCollection);
 // console.log(protectedMethods);
-// console.log(classCollection["class-Business"].print());
-console.log(classCollection["class-Supermaket"].anyMethod());
+// classCollection["class-Business"].print();
+// classCollection["class-Supermaket"].anyMethod();
+classCollection["class-Business"].loginTest({ token: "random" });
+classCollection["class-Supermaket"].loginTest({ token: "123" });

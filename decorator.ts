@@ -18,10 +18,14 @@ export function protect(target, property, descriptor) {
   const orignalFunction = descriptor.value;
 
   descriptor.value = function(request) {
-    if (request.token !== "random") throw new Error("Not Authorized");
-    const bindedOriginalFunction = orignalFunction.bind(this);
-    const result = bindedOriginalFunction(request);
-    return result;
+    try {
+      if (request.token !== "random") throw new Error("Not Authorized");
+      const bindedOriginalFunction = orignalFunction.bind(this);
+      const result = bindedOriginalFunction(request);
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return descriptor;

@@ -1,0 +1,31 @@
+<table>
+    <tr class="table-head">
+        <th *ngFor="let label of labels; let i = index; trackBy: index" class="table-labels" (click)="sortBy(rows, i)">
+            {{label | uppercase}} <span class="rotatable-span"
+                [ngClass]="{'turn-down': descending, 'turn-up': !descending,'blue-text': label === arrowPointer}">&#9662;</span>
+        </th>
+    </tr>
+    <tr *ngFor="let row of itemsInView" class="table-rows">
+        <td *ngFor="let key of keys" class="table-cells">{{row[key]}}</td>
+    </tr>
+</table>
+
+
+<div class="pagination" *ngIf="rows && rows.length > 10">
+    <span (click)="setPage(0)" class="hover-text">First</span>
+    <span (click)="setPage(-1)" class="hover-text">Previous</span>
+    <!-- <span *ngFor="let page of pages" (click)="setPage(page)">{{page}}</span> -->
+    <!-- <span *ngIf="pages.length > 5">...</span> -->
+    <span>{{currentPage$ | async}} of {{ totalPages$ | async}}</span>
+    <span (click)="setPage(1)" class="hover-text">Next</span>
+    <span (click)="setPage()" class="hover-text">Last</span>
+</div>
+
+<div>
+    <ion-label>Items Per Page</ion-label>
+    <ion-select [ngModel]="itemsPerPage$ | async" multiple="false" (ionChange)="changeItemsPerPage($event)">
+        <ion-option *ngFor="let num of [10, 20, 30, 40]" [value]="num">
+            {{ num }}
+        </ion-option>
+    </ion-select>
+</div>

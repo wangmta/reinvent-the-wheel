@@ -1,0 +1,58 @@
+table-data {
+    table {
+        width: 100%;
+    }
+
+    .table-head {
+        background-color: rgba($bright-blue, 0.2);
+    }
+
+    .table-labels {
+        font-weight: initial;
+        text-align: left;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .table-labels,
+    .table-cells {
+        padding: 10px;
+    }
+
+    .table-rows:nth-child(odd) {
+        background-color: rgba($bright-blue, 0.05);
+    }
+
+    .table-rows:last-child {
+        border-bottom: 2px solid rgba($bright-blue, 0.05);
+    }
+
+    .rotatable-span {
+        color: $grey40;
+    }
+
+    .blue-text {
+        color: $bright-blue;
+    }
+
+    .pagination {
+        width: calc(100% - 240px);
+        padding-top: 10px;
+
+        span,
+        button {
+            border-radius: $card-radius;
+            border: 1px solid $grey40;
+            padding: 5px;
+            font-size: 15px;
+            height: 30px;
+            color: $grey60;
+        }
+    }
+
+    ion-item {
+        width: 220px !important;
+    }
+}

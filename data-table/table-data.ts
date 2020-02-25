@@ -18,17 +18,16 @@ export class TableDataComponent implements OnInit, OnChanges {
   itemsPerPage$ = new BehaviorSubject(10);
   currentPage$ = new BehaviorSubject(0);
   totalPages$ = new BehaviorSubject(0);
-  startIndex$ = new BehaviorSubject(0);
-  // startIndex$ = Observable.combineLatest(this.itemsPerPage$, this.currentPage$).pipe(
-  //   map(([itemsPerPage, currentPage]) => itemsPerPage * currentPage)
-  // );
+  isFirstPage$ = this.currentPage$.pipe(map(page => page === 0));
+  isLastPage$ = new BehaviorSubject(false);
   changeSub: Subscription;
 
   ngOnInit() {}
 
   ngOnChanges(changes) {
+    // console.log(changes);
+    this.currentPage$.next(0);
     this.refresh();
-    console.log(this.itemsInView);
   }
   ngOnDestroy() {
     this.changeSub.unsubscribe();
@@ -40,10 +39,13 @@ export class TableDataComponent implements OnInit, OnChanges {
         this.itemsPerPage$,
         this.currentPage$
       ).subscribe(([itemsPerPage, currentPage]) => {
-        const index = itemsPerPage * currentPage;
-        this.startIndex$.next(index);
-        this.itemsInView = this.rows.slice(index, index + itemsPerPage);
+        const startIndex = itemsPerPage * currentPage;
+        this.itemsInView = this.rows.slice(
+          startIndex,
+          startIndex + itemsPerPage
+        );
         this.totalPages$.next(Math.ceil(this.rows.length / itemsPerPage));
+        this.isLastPage$.next(this.totalPages$.getValue() === currentPage + 1);
       });
 
       // this.pages = Array.from(Array(this.totalPages$.getValue()).keys());
@@ -51,8 +53,11 @@ export class TableDataComponent implements OnInit, OnChanges {
   }
 
   setPage(num) {
-    const currentPage = this.currentPage$.getValue();
-    this.currentPage$.next(currentPage + num);
+    let newPage;
+    newPage = this.currentPage$.getValue() + num;
+    if (num === 0) newPage = 0;
+    if (num === -2) newPage = this.totalPages$.getValue() - 1;
+    this.currentPage$.next(newPage);
   }
 
   changeItemsPerPage(value) {

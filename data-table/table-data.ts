@@ -29,8 +29,9 @@ export class TableDataComponent implements OnInit, OnChanges {
     this.currentPage$.next(0);
     this.refresh();
   }
+
   ngOnDestroy() {
-    this.changeSub.unsubscribe();
+    if (this.changeSub) this.changeSub.unsubscribe();
   }
 
   refresh() {
@@ -47,7 +48,6 @@ export class TableDataComponent implements OnInit, OnChanges {
         this.totalPages$.next(Math.ceil(this.rows.length / itemsPerPage));
         this.isLastPage$.next(this.totalPages$.getValue() === currentPage + 1);
       });
-
       // this.pages = Array.from(Array(this.totalPages$.getValue()).keys());
     }
   }
@@ -61,6 +61,7 @@ export class TableDataComponent implements OnInit, OnChanges {
   }
 
   changeItemsPerPage(value) {
+    this.currentPage$.next(0);
     this.itemsPerPage$.next(value);
   }
 

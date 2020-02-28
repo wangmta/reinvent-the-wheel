@@ -16,7 +16,7 @@
     <div class="pagination">
         <button (click)="setPage(0)" class="hover-text">First</button>
         <button (click)="setPage(-1)" class="hover-text" [disabled]="isFirstPage$ | async">Previous</button>
-        <span>{{currentPage$.getValue() + 1}} of {{ totalPages$ | async}}</span>
+        <span>Page {{currentPage$.getValue() + 1}} of {{ totalPages$ | async}} &nbsp;|&nbsp; {{rows.length}} Rows</span>
         <button (click)="setPage(1)" class="hover-text" [disabled]="isLastPage$ | async">Next</button>
         <button (click)="setPage(-2)" class="hover-text">Last</button>
     </div>

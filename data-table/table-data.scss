@@ -38,7 +38,6 @@ table-data {
     }
 
     .pagination {
-        width: calc(100% - 240px);
         padding-top: 10px;
 
         span,
@@ -50,9 +49,37 @@ table-data {
             height: 30px;
             color: $grey60;
         }
+
+        button:hover {
+            border: 1px solid rgba($bright-blue, 0.8);
+        }
     }
 
-    ion-item {
-        width: 220px !important;
+    .page-control {
+        padding-top: 10px;
+        justify-content: flex-start;
+
+        input {
+            width: 40px;
+            border-radius: $card-radius;
+            border: 1px solid $grey40;
+            text-align: center;
+            font-size: 15px;
+            height: 30px;
+            color: $grey60;
+
+            &:focus {
+                border: 2px solid $mild-b;
+            }
+
+            &::-webkit-inner-spin-button {
+                display: none;
+            }
+        }
+
+        div:first-child {
+            margin-right: 10px;
+        }
     }
+
 }

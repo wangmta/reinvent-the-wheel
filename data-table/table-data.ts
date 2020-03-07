@@ -1,12 +1,14 @@
-import { Component, Input, OnInit, OnChanges } from "@angular/core";
-import { BehaviorSubject, Observable, Subscription } from "rxjs";
-import { map } from "rxjs/operators";
+import { Component, Input, OnChanges } from "@angular/core";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { combineLatest } from "rxjs/observable/combineLatest";
+import { Subscription } from "rxjs/Subscription";
+import { map } from "rxjs/operators/map";
 
 @Component({
   selector: "table-data",
   templateUrl: "table-data.html"
 })
-export class TableDataComponent implements OnInit, OnChanges {
+export class TableDataComponent implements OnChanges {
   @Input("rows") rows: any[];
   @Input("keys") keys: any[];
   @Input("labels") labels: any[];
@@ -22,8 +24,6 @@ export class TableDataComponent implements OnInit, OnChanges {
   isLastPage$ = new BehaviorSubject(false);
   changeSub: Subscription;
 
-  ngOnInit() {}
-
   ngOnChanges(changes) {
     // console.log(changes);
     this.currentPage$.next(0);
@@ -35,8 +35,8 @@ export class TableDataComponent implements OnInit, OnChanges {
   }
 
   refresh() {
-    if (this.rows) {
-      this.changeSub = Observable.combineLatest(
+    if (this.rows && this.rows.length > 0) {
+      this.changeSub = combineLatest(
         this.itemsPerPage$,
         this.currentPage$
       ).subscribe(([itemsPerPage, currentPage]) => {
@@ -60,14 +60,18 @@ export class TableDataComponent implements OnInit, OnChanges {
     this.currentPage$.next(newPage);
   }
 
-  changeItemsPerPage(value) {
-    this.currentPage$.next(0);
-    this.itemsPerPage$.next(value);
+  setCurrentPage($event) {
+    if ($event > 1 && $event <= this.totalPages$.getValue()) {
+      this.currentPage$.next($event - 1);
+    }
   }
 
-  // trackByKey(index, item) {
-  //   return item[this.indexKey];
-  // }
+  changeItemsPerPage($event) {
+    if ($event >= 5 && $event <= 50) {
+      this.currentPage$.next(0);
+      this.itemsPerPage$.next($event);
+    }
+  }
 
   sortBy(array: any[], index: number) {
     this.descending = !this.descending;

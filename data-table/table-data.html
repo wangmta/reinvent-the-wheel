@@ -12,20 +12,25 @@
 </table>
 
 
-<div class="flex-container" *ngIf="rows && rows.length > 10">
+<div *ngIf="rows && rows.length > 10" class="flex-container">
     <div class="pagination">
         <button (click)="setPage(0)" class="hover-text">First</button>
-        <button (click)="setPage(-1)" class="hover-text" [disabled]="isFirstPage$ | async">Previous</button>
-        <span>Page {{currentPage$.getValue() + 1}} of {{ totalPages$ | async}} &nbsp;|&nbsp; {{rows.length}} Rows</span>
+        <button (click)="setPage(-1)" class="hover-text" [disabled]="isFirstPage$ | async">Prev</button>
+        <span>{{currentPage$.getValue() + 1}} of {{ totalPages$ | async}} &nbsp;|&nbsp; {{rows.length}} Rows</span>
         <button (click)="setPage(1)" class="hover-text" [disabled]="isLastPage$ | async">Next</button>
         <button (click)="setPage(-2)" class="hover-text">Last</button>
     </div>
-    <ion-item>
-        <ion-label>Display Rows</ion-label>
-        <ion-select [ngModel]="itemsPerPage$ | async" multiple="false" (ionChange)="changeItemsPerPage($event)">
-            <ion-option *ngFor="let num of [10, 20, 30, 40]" [value]="num">
-                {{ num }}
-            </ion-option>
-        </ion-select>
-    </ion-item>
+
+    <div class="flex-container page-control" *ngIf="(totalPages$ | async) > 10">
+        <div>
+            Go To <input class="custom-input" type="number" [ngModel]="currentPage$.getValue() + 1"
+                (ngModelChange)="setCurrentPage($event)">
+        </div>
+
+        <div>
+            Display Rows <input class="custom-input" type="number" [ngModel]="itemsPerPage$ | async"
+                (ngModelChange)="changeItemsPerPage($event)">
+        </div>
+    </div>
+
 </div>

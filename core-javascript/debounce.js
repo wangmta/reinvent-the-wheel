@@ -1,12 +1,12 @@
-const throttle = (fn, delay) => {
-  let last = 0;
+const debounce = (fn, delay) => {
+  let timerID;
   return (...args) => {
-    const now = new Date().getTime();
-    if (now - last < delay) {
-      return;
+    if (timerID) {
+      clearTimeout(timerID);
     }
-    last = now;
-    fn(...args);
+    timerID = setTimeout(() => {
+      fn(...args);
+    }, delay);
   };
 };
 

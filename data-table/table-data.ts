@@ -12,6 +12,8 @@ export class TableDataComponent implements OnChanges {
   @Input("rows") rows: any[];
   @Input("keys") keys: any[];
   @Input("labels") labels: any[];
+  @Input("color-code") colorCode: string;
+  @Input("color-code-target") colorCodeTarget: string;
   // @Input('index-key') indexKey: any;
   itemsInView: any[];
   descending: boolean = false;
@@ -66,30 +68,11 @@ export class TableDataComponent implements OnChanges {
     }
   }
 
-  callSetCurrentPage($event) {
-    this.debounce(this.setCurrentPage, 1500)($event);
-  }
-
   changeItemsPerPage($event) {
     if ($event >= 5 && $event <= 50) {
       this.currentPage$.next(0);
       this.itemsPerPage$.next($event);
     }
-  }
-
-  callChangeItemsPerPage($event) {
-    this.debounce(this.changeItemsPerPage, 1000)($event);
-  }
-
-  debounce(fn, delay) {
-    let self = this,
-      timerID;
-    return (...args) => {
-      if (timerID) clearTimeout(timerID);
-      timerID = setTimeout(() => {
-        fn.bind(self)(...args);
-      }, delay);
-    };
   }
 
   sortBy(array: any[], index: number) {

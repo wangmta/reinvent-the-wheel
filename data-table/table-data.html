@@ -7,7 +7,8 @@
         </th>
     </tr>
     <tr *ngFor="let row of itemsInView" class="table-rows">
-        <td *ngFor="let key of keys" class="table-cells">{{row[key]}}</td>
+        <td *ngFor="let key of keys" class="table-cells" [ngClass]="colorCode&&key===colorCodeTarget?row[colorCode]:''">
+            {{row[key]}}</td>
     </tr>
 </table>
 
@@ -21,7 +22,7 @@
         <button (click)="setPage(-2)" class="hover-text">Last</button>
     </div>
 
-    <div class="flex-container page-control" *ngIf="(totalPages$ | async) > 10">
+    <div class="flex-container page-control" *ngIf="rows.length > 20">
         <div>
             Go To <input class="custom-input" type="number" [ngModel]="currentPage$.getValue() + 1"
                 (ngModelChange)="setCurrentPage($event)">

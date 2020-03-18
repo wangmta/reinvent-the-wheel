@@ -82,4 +82,13 @@ table-data {
         }
     }
 
+    .RED,
+    .YELLOW,
+    .GREEN,
+    .BLUE {
+        text-align: center;
+        border-radius: 10px;
+        border-bottom: 1px solid white;
+        width: 60px;
+    }
 }

@@ -50,3 +50,6 @@ Bat.prototype.fly = function() {
 let fruitBat = new Bat(4, true);
 fruitBat.fly();
 fruitBat.sleep();
+
+// properties are set in constructor
+// methods are set in prototype

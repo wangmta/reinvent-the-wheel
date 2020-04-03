@@ -1,0 +1,12 @@
+<div class="viewport" (scroll)="onScroll($event)" #viewport>
+    <div *ngFor="let item of (visibleItems$ | async)">
+        <ng-container *ngTemplateOut="listItemTemplate; context: {$implicit: item}"></ng-container>
+    </div>
+</div>
+
+<!-- usage -->
+<!-- <virtual-list [list]="anyList">
+    <div *listItem="let-item">
+      Static List Template Content
+    </div>
+  </virtual-list> -->

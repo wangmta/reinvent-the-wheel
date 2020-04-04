@@ -12,7 +12,7 @@ const debounce = (fn, delay) => {
 
 document.getElementById("button").addEventListener(
   "click",
-  throttle(event => {
+  debounce(event => {
     console.log("click event emitted");
   }, 5000)
 );

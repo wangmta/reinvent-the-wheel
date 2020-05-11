@@ -21,8 +21,6 @@ var twoSum = function (nums, target) {
 
         indexMap.set(num0, i);
     }
-
-    // return result;
 };
 
 let res = twoSum([1, 3, 4, 6, 7], 9);

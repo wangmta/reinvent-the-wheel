@@ -1,12 +1,7 @@
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
-/* Geohash encoding/decoding and associated functions   (c) Chris Veness 2014-2019 / MIT Licence  */
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
-// https://www.movable-type.co.uk/scripts/geohash.html
-
 const base32 = "0123456789bcdefghjkmnpqrstuvwxyz"; // (geohash-specific) Base32 map
 
 /**
- * Geohash: Gustavo Niemeyer’s geocoding system.
+ * Geohash: geocoding system.
  */
 class Geohash {
   /**
@@ -165,7 +160,7 @@ class Geohash {
 
     const bounds = {
       sw: { lat: latMin, lon: lonMin },
-      ne: { lat: latMax, lon: lonMax }
+      ne: { lat: latMax, lon: lonMax },
     };
 
     return bounds;
@@ -191,26 +186,26 @@ class Geohash {
     const neighbour = {
       n: [
         "p0r21436x8zb9dcf5h7kjnmqesgutwvy",
-        "bc01fg45238967deuvhjyznpkmstqrwx"
+        "bc01fg45238967deuvhjyznpkmstqrwx",
       ],
       s: [
         "14365h7k9dcfesgujnmqp0r2twvyx8zb",
-        "238967debc01fg45kmstqrwxuvhjyznp"
+        "238967debc01fg45kmstqrwxuvhjyznp",
       ],
       e: [
         "bc01fg45238967deuvhjyznpkmstqrwx",
-        "p0r21436x8zb9dcf5h7kjnmqesgutwvy"
+        "p0r21436x8zb9dcf5h7kjnmqesgutwvy",
       ],
       w: [
         "238967debc01fg45kmstqrwxuvhjyznp",
-        "14365h7k9dcfesgujnmqp0r2twvyx8zb"
-      ]
+        "14365h7k9dcfesgujnmqp0r2twvyx8zb",
+      ],
     };
     const border = {
       n: ["prxz", "bcfguvyz"],
       s: ["028b", "0145hjnp"],
       e: ["bcfguvyz", "prxz"],
-      w: ["0145hjnp", "028b"]
+      w: ["0145hjnp", "028b"],
     };
 
     const lastCh = geohash.slice(-1); // last character of hash
@@ -243,7 +238,7 @@ class Geohash {
       s: Geohash.adjacent(geohash, "s"),
       sw: Geohash.adjacent(Geohash.adjacent(geohash, "s"), "w"),
       w: Geohash.adjacent(geohash, "w"),
-      nw: Geohash.adjacent(Geohash.adjacent(geohash, "n"), "w")
+      nw: Geohash.adjacent(Geohash.adjacent(geohash, "n"), "w"),
     };
   }
 }

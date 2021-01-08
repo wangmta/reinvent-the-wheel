@@ -1,37 +1,61 @@
 <table>
-    <tr class="table-head">
-        <th *ngFor="let label of labels; let i = index; trackBy: index" class="table-labels"
-            (click)="sortBy(itemsInView, i)">
-            {{label | uppercase}} <span class="rotatable-span"
-                [ngClass]="{'turn-down': descending, 'turn-up': !descending,'blue-text': label === arrowPointer}">&#9662;</span>
-        </th>
-    </tr>
-    <tr *ngFor="let row of itemsInView" class="table-rows">
-        <td *ngFor="let key of keys" class="table-cells" [ngClass]="colorCode&&key===colorCodeTarget?row[colorCode]:''">
-            {{row[key]}}</td>
-    </tr>
+  <tr class="table-head">
+    <th
+      *ngFor="let label of labels; let i = index; trackBy: index"
+      class="table-labels"
+      (click)="sortBy(itemsInView, i)"
+    >
+      {{label | uppercase}}
+      <span
+        *ngIf="showSort"
+        class="rotatable-span"
+        [ngClass]="{'turn-down': descending, 'turn-up': !descending,'blue-text': label === arrowPointer}"
+        >&#9662;</span
+      >
+    </th>
+  </tr>
+  <tr *ngFor="let row of itemsInView" class="table-rows">
+    <td
+      *ngFor="let key of keys"
+      class="table-cells"
+      [ngStyle]="customStyle"
+      [innerHTML]="checkSpecialCol(key)? onSpecialColFunc(key, row[key]): row[key]"
+      (click)="checkSpecialCol(key)? onSpecialColEvent(key, row) : null"
+    ></td>
+  </tr>
 </table>
 
-
 <div *ngIf="rows && rows.length > 10" class="flex-container">
-    <div class="pagination">
-        <button (click)="setPage(0)" class="hover-text">First</button>
-        <button (click)="setPage(-1)" class="hover-text" [disabled]="isFirstPage$ | async">Prev</button>
-        <span>{{currentPage$.getValue() + 1}} of {{ totalPages$ | async}} &nbsp;|&nbsp; {{rows.length}} Rows</span>
-        <button (click)="setPage(1)" class="hover-text" [disabled]="isLastPage$ | async">Next</button>
-        <button (click)="setPage(-2)" class="hover-text">Last</button>
+  <div class="pagination">
+    <button (click)="setPage(-1)" class="hover-text" [disabled]="isFirstPage$ | async">Prev</button>
+    <button (click)="setPage(0)" class="hover-text">First</button>
+    <span
+      >{{currentPage$.getValue() + 1}} of {{ totalPages$ | async}} &nbsp;|&nbsp; {{(totalRows$ |
+      async) || rows.length}} Rows</span
+    >
+    <button (click)="setPage(-2)" class="hover-text">Last</button>
+    <button (click)="setPage(1)" class="hover-text" [disabled]="isLastPage$ | async">Next</button>
+  </div>
+
+  <div class="flex-container page-control" *ngIf="rows.length > 20">
+    <div>
+      Go To
+      <input
+        class="custom-input"
+        type="number"
+        [ngModel]="currentPage$.getValue() + 1"
+        (ngModelChange)="setCurrentPage($event)"
+      />
     </div>
 
-    <div class="flex-container page-control" *ngIf="rows.length > 20">
-        <div>
-            Go To <input class="custom-input" type="number" [ngModel]="currentPage$.getValue() + 1"
-                (ngModelChange)="setCurrentPage($event)">
-        </div>
-
-        <div>
-            Display Rows <input class="custom-input" type="number" [ngModel]="itemsPerPage$ | async"
-                (ngModelChange)="changeItemsPerPage($event)">
-        </div>
+    <div>
+      Display Rows
+      <input
+        class="custom-input"
+        type="number"
+        [ngModel]="itemsPerPage$ | async"
+        (ngModelChange)="changeItemsPerPage($event)"
+      />
     </div>
-
+  </div>
 </div>

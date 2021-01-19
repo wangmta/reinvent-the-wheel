@@ -171,3 +171,32 @@ function chunkArrayInGroups(arr, size) {
 
 chunkArrayInGroups(["a", "b", "c", "d"], 2);
 chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6, 7, 8], 2);
+
+function largerVersion(a, b) {
+  let arrA = a.split(".").map((e) => parseInt(e)),
+    arrB = b.split(".").map((e) => parseInt(e));
+  let str = "";
+
+  // e:equal, l:larger, s:smaller
+  for (let i = 0; i < arrA.length; i++) {
+    if (arrA[i] === arrB[i]) {
+      str += "e";
+    } else if (arrA[i] > arrB[i]) {
+      str += "l";
+    } else {
+      str += "s";
+    }
+  }
+  if (!/[l|s]/g.test(str)) {
+    return 0;
+  } else if (str.split("e").join("")[0] === "l") {
+    return a;
+  } else {
+    return b;
+  }
+}
+
+console.log(largerVersion("3.2.6", "2.4.5"));
+console.log(largerVersion("2.4.5", "3.2.6"));
+console.log(largerVersion("3.11.6", "3.4.5"));
+console.log(largerVersion("1.4.5", "1.4.11"));

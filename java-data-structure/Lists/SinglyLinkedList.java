@@ -41,13 +41,13 @@ public class SinglyLinkedList {
     public void insertNth(int data, int position) {
         checkBounds(position, 0, size);
         Node newNode = new Node(data);
-        //empty list
-        if(head == null){
+        // empty list
+        if(size == 0) {
             head = newNode;
             size++;
             return;
         }else if(position == 0) {
-            //insert at the head of the list
+            // insert at the head of the list
             newNode.next = head;
             head = newNode;
             size++;
@@ -58,6 +58,7 @@ public class SinglyLinkedList {
             current = current.next;
         }
         newNode.next = current.next;
+        current.next = newNode;
         size++;
     }
 
@@ -76,7 +77,7 @@ public class SinglyLinkedList {
     // delete a node at nth position
     public void deleteNth(int position){
         checkBounds(position, 0, size - 1);
-        if(position == 0){
+        if(position == 0) {
             Node destroy = head;
             head = head.next;
             destroy = null;

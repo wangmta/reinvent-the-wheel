@@ -120,5 +120,73 @@ public class DoublyLinkedList {
                 throw new RuntimeException("The element to be deleted does not exist!")
             }
         }
+        if(current == head) deleteHead();
+        else if(current == tail) deleteTail();
+        else{
+            current.previous.next = current.next;
+            current.next.previous = current.previous;
+        }
+        size--;
+    }
+
+    // inserts element and reorders
+    public void insertOrdered(int x) {
+        Link newLink = new Link(x);
+        Link current = head;
+        while(current != null && x > current.value) {
+            current = current.next;
+        }
+        if(current == head) insertHead(x);
+        else if(current == null) insertTail(x);
+        else {
+            newLink.previous = current.previous;
+            current.previous.next = newLink;
+            newLink.next = current;
+            current.previous = newLink;
+        }
+        size++;
+    }
+
+    public void deleteNode(Link z) {
+        if(z == head) deleteHead();
+        else if(z.next == null) deleteTail();
+        else {
+            z.previous.next = z.next;
+            z.next.previous = z.previous;
+        }
+        size--;
+    }
+
+    public void removeDuplicates(DoublyLinkedList l) {
+        Link linkOne = l.head;
+        while(linkOne.next != null) {
+            Link linkTwo = linkOne.next;
+            while(linkTwo.next != null) {
+                if(linkOne.value == linkTwo.value) {
+                    l.delete(linkTwo.value);
+                }
+                linkTwo = linkTwo.next;
+            }
+            linkOne = linkOne.next;
+        }
+    }
+
+    public void clearList() {
+        head = null;
+        tail = null;
+        size = 0;
+    }
+
+    public boolean isEmpty(){
+        return size == 0;
+    }
+
+    public void display() {
+        Link current = head;
+        while(current.next != null) {
+            current.displayLink();
+            current = current.next;
+        }
+        System.out.println();
     }
 }

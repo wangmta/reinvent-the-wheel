@@ -190,3 +190,29 @@ public class DoublyLinkedList {
         System.out.println();
     }
 }
+
+// var five = {
+//     value: 4,
+//     next: null
+// }
+// var four = {
+//     value: 3,
+//     next: five
+// }
+// var three = {
+//     value: 2,
+//     next: four
+// }
+// var two = {
+//     value: 1,
+//     next: three
+// }
+// var one = {
+//     value: 0,
+//     next: two
+// }
+// var current = one;
+// for(let i = 0; i < 3 -1; ++i){
+//     current = current.next;
+// }
+// console.log(current);

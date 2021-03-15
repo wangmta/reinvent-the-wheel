@@ -7,3 +7,29 @@ Array.prototype.customReverse = function() {
   }
   return this;
 };
+
+Array.prototype.customForEach = function(func, obj) {
+  let len = this.length,
+    _this = obj ? obj : window;
+  for (let i = 0; i < len; i++) {
+    func.call(_this, this[i], i, this);
+  }
+};
+
+Array.prototype.customMap = function(func, obj) {
+  let len = this.length,
+    _this = obj ? obj : window,
+    arr = [];
+  for (let i = 0; i < len; i++) {
+    arr.push(func.call(_this, this[i], i, this));
+  }
+  return arr;
+};
+
+var myObject = { name: "myObject" };
+
+[1, 2].forEach(function(item) {
+  console.log(typeof this.name);
+  console.log(item); // 1, 2
+  console.log(this === myObject, this); // true  {name: "myObject"}
+}, myObject);

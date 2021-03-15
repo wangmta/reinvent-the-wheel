@@ -51,33 +51,60 @@
 //     return tempArray.length === 0;
 // }
 
-var isValid = function (s) {
-    if (!s) return false;
-    const pMap = {
-        '{': '}',
-        '[': ']',
-        '(': ')'
-    };
-    const matchArray = [];
-    for (let i = 0; i < s.length; i++) {
-        const currentChar = s[i]
-        let lastChar;
-        // test if currentChar is opening bracket
-        if (pMap[currentChar]) {
-            matchArray.push(currentChar);
-            // console.log('line1', matchArray);
-        } else {
-            // get last pushed bracket
-            if (matchArray.length) {
-                lastChar = matchArray.pop();
-                // console.log('line2', matchArray);
-                if (pMap[lastChar] !== currentChar) return false;
-            }
-        }
+var isValid = function(s) {
+  if (!s) return false;
+  const pMap = {
+    "{": "}",
+    "[": "]",
+    "(": ")",
+  };
+  const matchArray = [];
+  for (let i = 0; i < s.length; i++) {
+    const currentChar = s[i];
+    let lastChar;
+    // test if currentChar is opening bracket
+    if (pMap[currentChar]) {
+      matchArray.push(currentChar);
+      // console.log('line1', matchArray);
+    } else {
+      // get last pushed bracket
+      if (matchArray.length) {
+        lastChar = matchArray.pop();
+        // console.log('line2', matchArray);
+        if (pMap[lastChar] !== currentChar) return false;
+      }
     }
-    return matchArray.length === 0;
+  }
+  return matchArray.length === 0;
+};
+
+console.log(isValid("({)}"));
+console.log(isValid("(){}[][()]"));
+console.log(isValid("[({})][]()"));
+
+// psudo code, solved with stack data structure
+const bracketMap = {
+  "}": "{",
+  "]": "[",
+  ")": "(",
+};
+
+function reversed(bracket) {
+  return bracketMap[bracket];
 }
 
-console.log(isValid('({)}'));
-console.log(isValid('(){}[][()]'));
-console.log(isValid('[({})][]()'));
+function isLeft(bracket) {
+  return !bracketMap[bracket];
+}
+
+function isValid(string) {
+  let stack = [];
+  for (let bracket of string) {
+    if (isLeft(bracket)) {
+      stack.unshift(bracket);
+    } else if (!stack.length || stack.shift() != reversed(bracket)) {
+      return false;
+    }
+  }
+  return stack.length == 0;
+}

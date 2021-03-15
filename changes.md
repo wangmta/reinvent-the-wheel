@@ -1,11 +1,56 @@
 ### Bug Fixes
 
-- 9bbcfba0: dept list for dept page when deptfilter on store page applied
-- d684ef6e: save deptfilter for store page
-- 36fd09f0: dept & category selection dynamics
-- 1a8d5b6d: reduction csv filenames for store/dept
-- 83a4ce54: reduction dept input & clean table when no data returned
+- 119c7009: point to different api endpoint
+- da01004f: qwerty keyboard changed to number only
+- 66febb99: separate regular planogram with frozen door planogram check
+- 4d8d91be: conditional for invalid door bug fix
+- 81ee36e4: error handling in starting door number
+- eb68491a: todays date returning yesterday in OOS
+- 6b083dbd: edit frozen door instruction text
+- 14a00c09: revDoor variable for input into post request
+- 628b3895: spelling mistake in post body
+- fc703d62: input type number
 
 ### Features
 
-- 54a1f480: table-data return 2 decimals when type is currency
+- b53daefb: add auth to planogram at section level
+- e33bae5f: auth to check for AP03 - planogram authority
+- 10c6bea0: clean up console logs
+- b570cd3c: invalid door number CSS edit
+- 613940be: invalid door css on non reversed door
+- f6579367: adjust hex value color for rendering on android
+- a0180d4d: put date box back
+- 2f0907ad: grey box to reset date
+- ae68f17b: adjust update area box
+- 92dea897: adjust label sizes and button spacing
+- 5aa2a87c: margin adjustment
+- c088a974: realign buttons and inputs on add area
+- 4ba78aff: remove grey box in add area box
+- 925335b0: grey background on edit sequence
+- a9f75df0: styling add new side
+- bfe9bd6a: create dynamic styling
+- c506e792: add grey box around description override
+- da0b4fcc: adjust grey box size
+- 92ee2b08: blue underlines for all dropdowns
+- a4aa390b: increase size of description override dropdown
+- 7bb0d1e5: adjust font size
+- cc801f3e: adjust background to custom card
+- 83282d83: rm background color
+- 0f26829f: add grey background
+- 6c4a0caa: adjust margins on white box
+- 8c69f443: adjust underline color
+- 1d7fe784: add conditionals to dimiss function
+- 3e0d8a9b: temporary border color added
+- afd600b3: change background color
+- 78729011: add background color
+- 016ab6eb: error handling for when invalid door entries are submitted
+- a3228e9b: red for invalid door value
+- bda9d7f8: api updated with new features
+- 5046cee5: door reverse order case handled
+- 4e1ee43f: door preview dynamic fix
+- 131485e9: conditional added back in with door preview feature
+- 90c29cbc: add section class to fix input box
+- 79f4d4e6: border around div and styling
+- 292d4553: box around toggle and input
+- 34d392f9: conditional to check for frozen door shelf type code
+- 0e7db421: new label and toggle for frozen door features

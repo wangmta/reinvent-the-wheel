@@ -37,3 +37,33 @@ export function override(target, property, descriptor) {
   };
   return descriptor;
 }
+
+const changeProp = (target) => {
+  return class extends target {
+    prop1 = "test new prop 1";
+  };
+};
+
+const changeFn = (
+  target: Object,
+  propKey: string,
+  descriptor: PropertyDescriptor
+) => {
+  console.log(target);
+  console.log(propKey);
+  descriptor.value = () => {
+    return "changed fn text";
+  };
+};
+
+@changeProp
+class Test {
+  prop1 = "old prop 1";
+
+  @changeFn
+  testFn() {}
+}
+
+let test = new Test();
+console.log(test.prop1); // test new prop 1
+console.log(test.testFn()); // changed fn text

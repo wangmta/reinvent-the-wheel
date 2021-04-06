@@ -23,7 +23,7 @@ let obj = {
     })();
 
     (() => {
-      console.log(this);
+      console.log(this === obj); //true
       console.log("inner func:  this.foo = " + this.foo); // "bar"
       console.log("inner func:  self.foo = " + self.foo); // "bar"
     })();

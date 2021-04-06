@@ -1,7 +1,9 @@
 <div class="viewport" (scroll)="onScroll($event)" #viewport>
-    <div *ngFor="let item of (visibleItems$ | async)">
-        <ng-container *ngTemplateOut="listItemTemplate; context: {$implicit: item}"></ng-container>
-    </div>
+  <div *ngFor="let item of (visibleItems$ | async)">
+    <ng-container
+      *ngTemplateOutlet="listItemTemplate; context: {$implicit: item}"
+    ></ng-container>
+  </div>
 </div>
 
 <!-- usage -->
